@@ -1,9 +1,19 @@
 import React, { useEffect, useState } from "react";
+interface Solicitud {
+  id: number;
+  nombre: string;
+  empresa: string;
+  email: string;
+  detalle: string;
+}
+interface CopiedEmails {
+  [key: string]: boolean;
+}
 
 export default function Table() {
-  const [solicitudes, setSolicitudes] = useState([]);
+  const [solicitudes, setSolicitudes] = useState<Solicitud[]>([]);
   const [loading, setLoading] = useState(true);
-  const [copiedEmails, setCopiedEmails] = useState({});
+  const [copiedEmails, setCopiedEmails] = useState<CopiedEmails>({});
 
   useEffect(() => {
     const apiUrl = process.env.API_URL;
@@ -21,7 +31,7 @@ export default function Table() {
       });
   }, []);
 
-  const handleCopyEmail = (email) => {
+  const handleCopyEmail = (email: string) => {
     // Copy email to clipboard
     navigator.clipboard.writeText(email);
 
